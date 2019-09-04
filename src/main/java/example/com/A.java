@@ -2,6 +2,7 @@ package example.com;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,35 +21,37 @@ public class A {
     }
 
     private void setCities(List<String> list){
+        Path path = Paths.get("src\\main\\resources\\output.txt");
         try {
-            Files.write(Paths.get("src\\main\\resources\\output.txt"), list);
+            if (Files.notExists(path)){
+                Files.createFile(path);
+            }
+            Files.write(path, list);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private List<String> collectCities(List<String> cities){
-        List<String> temp = new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        List<String> list = new ArrayList<>(List.copyOf(cities));
+        List<String> tempList = new ArrayList<>();
+        List<String> resultList = new ArrayList<>();
+        List<String> copyCitiesList = new ArrayList<>(List.copyOf(cities));
 
         String compareCity;
-        String city;
         int lengthOfCities = 0;
-        for (String c : cities) {
-            city = c;
-            for (int j = 0; j < list.size(); j++) {
-                compareCity = list.get(j);
+        for (String city : cities) {
+            for (int j = 0; j < copyCitiesList.size(); j++) {
+                compareCity = copyCitiesList.get(j);
                 if (!city.equals(compareCity)) {
                     String a = String.valueOf(city.charAt(city.length() - 1));
                     String b = String.valueOf(compareCity.charAt(0));
                     if (a.equalsIgnoreCase(b)) {
-                        if (!temp.contains(city)) {
-                            temp.add(city);
+                        if (!tempList.contains(city)) {
+                            tempList.add(city);
                         }
-                        temp.add(compareCity);
-                        list.remove(city);
-                        list.remove(compareCity);
+                        tempList.add(compareCity);
+                        copyCitiesList.remove(city);
+                        copyCitiesList.remove(compareCity);
                         city = compareCity;
                         j = 0;
                     }
@@ -56,18 +59,18 @@ public class A {
             }
 
 
-            int count = temp.stream().map(String::valueOf).collect(Collectors.joining()).length();
+            int count = tempList.stream().map(String::valueOf).collect(Collectors.joining()).length();
             if (count > lengthOfCities){
                 lengthOfCities = count;
-                result = new ArrayList<>(List.copyOf(temp));
+                resultList = new ArrayList<>(List.copyOf(tempList));
             }
-            temp.clear();
-            list = new ArrayList<>(List.copyOf(cities));
+            tempList.clear();
+            copyCitiesList = new ArrayList<>(List.copyOf(cities));
 
         }
-        System.out.println("Cities list with max score = " + result);
+        System.out.println("Cities copyCitiesList with max score = " + resultList);
         System.out.println("SCORE = " + lengthOfCities);
-        return result;
+        return resultList;
     }
 
     public static void main(String[] args) {
