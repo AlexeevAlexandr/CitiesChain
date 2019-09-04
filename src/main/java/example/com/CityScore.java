@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,7 @@ class CityScore {
         }
     }
 
-    List<String> collectCities(List<String> cities){
+    private List<String> collectCities(List<String> cities){
         List<String> tempList = new ArrayList<>();
         List<String> resultList = new ArrayList<>();
         List<String> copyCitiesList = new ArrayList<>(List.copyOf(cities));
@@ -68,8 +69,20 @@ class CityScore {
             tempList.clear();
             copyCitiesList = new ArrayList<>(List.copyOf(cities));
         }
-        System.out.println("City list with max score = " + resultList);
-        System.out.println("SCORE = " + score);
         return resultList;
+    }
+
+    List<String> findMaxScore(List<String> list){
+        List<String> list1 = collectCities(list);
+        Collections.reverse(list);
+        List<String> list2 = collectCities(list);
+
+        int lengthList1 = list1.stream().map(String::valueOf).collect(Collectors.joining()).length();
+        int lengthList2 = list2.stream().map(String::valueOf).collect(Collectors.joining()).length();
+        int score = Math.max(lengthList1, lengthList2);
+
+        System.out.println("City list with max score = " + ((lengthList1 > lengthList2) ? list1 : list2));
+        System.out.println("SCORE = " + score);
+        return (lengthList1 > lengthList2) ? list1 : list2;
     }
 }

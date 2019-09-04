@@ -14,13 +14,10 @@ public class TestCityScore {
     @Test
     public void test() {
         List<String> initList = cityScore.getDataFromFile(pathToInputFile);
-        List<String> resultList = cityScore.collectCities(initList);
+        List<String> resultList = cityScore.findMaxScore(initList);
         cityScore.setDataToFile(resultList, pathToOutputFile);
 
-        List<String> expectedInitList = Arrays.asList("Olympia", "London", "Volcano", "Gordon", "Kiev", "Notebook", "Onion", "Nadean");
-        Assert.assertEquals(expectedInitList, initList);
-
-        List<String> expectedResultList = Arrays.asList("London", "Notebook", "Kiev", "Volcano", "Olympia");
+        List<String> expectedResultList = Arrays.asList("Onion", "Nadean", "Notebook", "Kiev", "Volcano", "Olympia");
         Assert.assertEquals(expectedResultList, resultList);
     }
 }
