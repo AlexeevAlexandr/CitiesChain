@@ -8,8 +8,8 @@ import java.util.List;
 
 public class TestCityScore {
     private CityScore cityScore = new CityScore();
-    private static final String pathToInputFile = "src\\main\\resources\\input.txt";
-    private static final String pathToOutputFile = "src\\main\\resources\\output.txt";
+    private static final String pathToInputFile = "src/main/resources/input.txt";
+    private static final String pathToOutputFile = "src/main/resources/output.txt";
 
     @Test
     public void test() {
