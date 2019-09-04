@@ -17,7 +17,7 @@ public class TestCityScore {
         List<String> resultList = cityScore.findMaxScore(initList);
         cityScore.setDataToFile(resultList, pathToOutputFile);
 
-        List<String> expectedResultList = Arrays.asList("Onion", "Nadean", "Notebook", "Kiev", "Volcano", "Olympia");
+        List<String> expectedResultList = Arrays.asList("Paris", "Stockholm", "Milan");
         Assert.assertEquals(expectedResultList, resultList);
     }
 }
