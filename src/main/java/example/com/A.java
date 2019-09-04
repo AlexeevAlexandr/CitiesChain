@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class A {
 
-    private List<String> getCities(){
+    private List<String> getDataFromFile(){
         List<String> list = new ArrayList<>();
         try {
             list = Files.readAllLines(Paths.get("src\\main\\resources\\input.txt"));
@@ -20,7 +20,7 @@ public class A {
         return list;
     }
 
-    private void setCities(List<String> list){
+    private void setDataToFile(List<String> list){
         Path path = Paths.get("src\\main\\resources\\output.txt");
         try {
             if (Files.notExists(path)){
@@ -43,9 +43,9 @@ public class A {
             for (int j = 0; j < copyCitiesList.size(); j++) {
                 compareCity = copyCitiesList.get(j);
                 if (!city.equals(compareCity)) {
-                    String a = String.valueOf(city.charAt(city.length() - 1));
-                    String b = String.valueOf(compareCity.charAt(0));
-                    if (a.equalsIgnoreCase(b)) {
+                    String cityLastChar = city.substring(city.length() - 1);
+                    String compareCityFirstChar = compareCity.substring(0, 1);
+                    if (cityLastChar.equalsIgnoreCase(compareCityFirstChar)) {
                         if (!tempList.contains(city)) {
                             tempList.add(city);
                         }
@@ -75,8 +75,8 @@ public class A {
 
     public static void main(String[] args) {
         A a = new A();
-        List<String> initList = a.getCities();
+        List<String> initList = a.getDataFromFile();
         List<String> resultList = a.collectCities(initList);
-        a.setCities(resultList);
+        a.setDataToFile(resultList);
     }
 }
