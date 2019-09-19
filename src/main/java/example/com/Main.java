@@ -6,16 +6,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
-    private static final String inputFile = "src\\main\\resources\\input.txt";
-    private static final String outputFile = "src\\main\\resources\\output.txt";
+    private static final String inputFile = "src/main/resources/input.txt";
+    private static final String outputFile = "src/main/resources/output.txt";
 
     public static void main(String[] args) throws IOException {
 
-            List<String> availableCities = Files.readAllLines(Paths.get(inputFile));
-            List<String> citiesList = Solver.solve(availableCities);
-            new Writer().write(outputFile, citiesList);
+        List<String> availableCities = Files.readAllLines(Paths.get(inputFile));
+        List<String> citiesList = Solver.solve(availableCities);
+        new Writer().write(outputFile, citiesList);
 
-            int a = String.join("", citiesList).length();
+        int a = String.join("", citiesList).length();
         System.out.println(a);
     }
 }
